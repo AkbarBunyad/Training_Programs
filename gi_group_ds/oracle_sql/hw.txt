@@ -1,0 +1,74 @@
+/1
+select first_name || '''s surname is '|| last_name ||'and salary is '||
+    salary from hr.employees;
+
+/2
+select first_name || ' ' || last_name ||' '|| 12*salary from hr.employees;
+
+/3
+describe hr.employees;
+
+/4
+select employee_id, first_name, last_name from hr.employees where manager_id is null;
+
+/5
+select * from hr.locations where (country_id not in ('US', 'UK', 'CA')
+    or (country_id = 'UK' and state_province is null));
+
+/6
+select count(*) from hr.locations where (city in ('Venice', 'Hiroshima', 'Bern') and country_id = 'JP') or 
+    (state_province = null and country_id not in ('JP', 'IT'));
+
+/7
+select employee_id, last_name, salary, job_id from hr.employees
+	where last_name like '%a%' or salary > 9000;
+
+/8
+select street_address||' is located in '|| country_id as address_info
+    	from hr.locations where country_id in ('UK', 'US');
+
+/9
+select employee_id, last_name, department_id from hr.employees
+	where department_id in (10, 20, 40) or commission_pct is null;
+
+/10
+select employee_id, last_name, commission_pct from hr.employees
+	where (employee_id > 105 and first_name like 'A%') or
+	(commission_pct is null);
+
+/11
+select employee_id, job_id, department_id from hr.employees
+	where instr(email, 'M') = 2 and email like '%M%' and commission_pct is not null
+    	order by employee_id desc;
+
+/12
+select employee_id || ' '|| last_name as emp_no, manager_id
+    from hr.employees where employee_id between 200 and 205;
+
+/13
+select first_name as ad, last_name as soyad, salary * commission_pct as bonus,
+	salary + salary * commission_pct as maash from hr.employees where salary * commission_pct > 2000;
+
+/14
+select employee_id as id, last_name as salary, power(salary, 3) as salary from hr.employees
+	where salary between 10000 and 12000;
+
+/15
+select * from hr.employees where department_id > manager_id/2;
+
+/16
+select * from hr.employees order by salary desc fetch first 1 rows only;
+
+/17
+select location_id, street_address from hr.locations where
+	length(street_address) - length(replace(street_address, ' ', '')) >=2 order by city desc;
+
+/18
+select employee_id ||' ededi '||department_id||' ededinin 2 mislinden 4 vahid coxdur' as diff_between_emp_id_and_dep_id
+	from hr.employees where employee_id = 2*department_id+4;
+
+/19
+select  distinct manager_id from hr.employees where manager_id < 120 or department_id > 100;
+
+/20
+select * from hr.locations where location_id between 1400 and 1700;
